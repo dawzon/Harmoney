@@ -12,4 +12,8 @@ export class InputComponent implements OnInit {
   ngOnInit() {
   }
 
+  addExpense() {
+    alert("TODO: connect this to the data service.")
+  }
+
 }
