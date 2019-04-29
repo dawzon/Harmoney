@@ -8,5 +8,5 @@
     <input #password type="password" class="form-control" name="password" id="password" placeholder="Enter password" ngModel required/>
     <small id="safetyNotice" class="form-text text-muted">This site is for demonstration only and does not have high security. Do NOT use important passwords here!</small>
   </div>
-  <button class="btn btn-primary" (click)="onSubmit(username.value, password.value)">Log-in</button>
+  <button type="button" class="btn btn-primary" (click)="onSubmit(username.value, password.value)">Log-in</button>
 </form>

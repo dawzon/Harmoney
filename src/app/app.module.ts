@@ -9,6 +9,8 @@ import { VisualizationComponent } from './visualization/visualization.component'
 import { InputComponent } from './input/input.component';
 import { LoginComponent } from './login/login.component';
 
+import { LoginService } from './login.service';
+
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -25,7 +27,9 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

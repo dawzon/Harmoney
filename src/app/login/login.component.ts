@@ -1,30 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [ LoginService ]
 })
 export class LoginComponent implements OnInit {
   output : string;
   returnURL: string;
-  subscription: any;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
     //set up redirect
     this.returnURL = this.route.snapshot.queryParams['returnUrl'] || "/";
+
+    if (this.loginService.getIsLoggedIn()) {
+      this.router.navigate([this.returnURL]);
+    }
   }
 
+  
   onSubmit(username : string, password : string) {
 
-    //TODO: Connect to loginService
-    //this.subscription = this.loginService.getLogin(username, password).subscribe(hero => this.hero = hero);
+    this.loginService.login(username, password);
     
     // Redirect user back to where they were before login
     this.router.navigate([this.returnURL]);

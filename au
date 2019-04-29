@@ -1,0 +1,141 @@
+[1mdiff --git a/src/app/app.module.ts b/src/app/app.module.ts[m
+[1mindex b747263..e03988c 100644[m
+[1m--- a/src/app/app.module.ts[m
+[1m+++ b/src/app/app.module.ts[m
+[36m@@ -9,6 +9,8 @@[m [mimport { VisualizationComponent } from './visualization/visualization.component'[m
+ import { InputComponent } from './input/input.component';[m
+ import { LoginComponent } from './login/login.component';[m
+ [m
+[32m+[m[32mimport { LoginService } from './login.service';[m
+[32m+[m
+ import { FormsModule } from '@angular/forms';[m
+ [m
+ @NgModule({[m
+[36m@@ -25,7 +27,9 @@[m [mimport { FormsModule } from '@angular/forms';[m
+     AppRoutingModule,[m
+     FormsModule[m
+   ],[m
+[31m-  providers: [],[m
+[32m+[m[32m  providers: [[m
+[32m+[m[32m    LoginService[m
+[32m+[m[32m  ],[m
+   bootstrap: [AppComponent][m
+ })[m
+ export class AppModule { }[m
+[1mdiff --git a/src/app/login/login.component.html b/src/app/login/login.component.html[m
+[1mindex 62b51a0..6474ff9 100644[m
+[1m--- a/src/app/login/login.component.html[m
+[1m+++ b/src/app/login/login.component.html[m
+[36m@@ -8,5 +8,5 @@[m
+     <input #password type="password" class="form-control" name="password" id="password" placeholder="Enter password" ngModel required/>[m
+     <small id="safetyNotice" class="form-text text-muted">This site is for demonstration only and does not have high security. Do NOT use important passwords here!</small>[m
+   </div>[m
+[31m-  <button class="btn btn-primary" (click)="onSubmit(username.value, password.value)">Log-in</button>[m
+[32m+[m[32m  <button type="button" class="btn btn-primary" (click)="onSubmit(username.value, password.value)">Log-in</button>[m
+ </form>[m
+\ No newline at end of file[m
+[1mdiff --git a/src/app/login/login.component.ts b/src/app/login/login.component.ts[m
+[1mindex d36fe4a..dfe8c1b 100644[m
+[1m--- a/src/app/login/login.component.ts[m
+[1m+++ b/src/app/login/login.component.ts[m
+[36m@@ -1,30 +1,37 @@[m
+ import { Component, OnInit } from '@angular/core';[m
+ import { ActivatedRoute, Router } from '@angular/router';[m
+[32m+[m[32mimport { LoginService } from '../login.service';[m
+ [m
+ @Component({[m
+   selector: 'app-login',[m
+   templateUrl: './login.component.html',[m
+[31m-  styleUrls: ['./login.component.css'][m
+[32m+[m[32m  styleUrls: ['./login.component.css'],[m
+[32m+[m[32m  providers: [ LoginService ][m
+ })[m
+ export class LoginComponent implements OnInit {[m
+   output : string;[m
+   returnURL: string;[m
+[31m-  subscription: any;[m
+ [m
+   constructor([m
+     private router: Router,[m
+[31m-    private route: ActivatedRoute[m
+[32m+[m[32m    private route: ActivatedRoute,[m
+[32m+[m[32m    private loginService: LoginService[m
+   ) { }[m
+ [m
+   ngOnInit() {[m
+     //set up redirect[m
+     this.returnURL = this.route.snapshot.queryParams['returnUrl'] || "/";[m
+[32m+[m
+[32m+[m[32m    if (this.loginService.getIsLoggedIn()) {[m
+[32m+[m[32m      this.router.navigate([this.returnURL]);[m
+[32m+[m[32m    }[m
+   }[m
+ [m
+[32m+[m[41m  [m
+   onSubmit(username : string, password : string) {[m
+ [m
+     //TODO: Connect to loginService[m
+[31m-    //this.subscription = this.loginService.getLogin(username, password).subscribe(hero => this.hero = hero);[m
+[32m+[m[32m    this.loginService.login(username, password);[m
+     [m
+     // Redirect user back to where they were before login[m
+     this.router.navigate([this.returnURL]);[m
+[1mdiff --git a/src/app/navbar/navbar.component.html b/src/app/navbar/navbar.component.html[m
+[1mindex 22f1798..5465090 100644[m
+[1m--- a/src/app/navbar/navbar.component.html[m
+[1m+++ b/src/app/navbar/navbar.component.html[m
+[36m@@ -11,9 +11,17 @@[m
+   </ul>[m
+   [m
+   <ul class="navbar-nav ml-auto">[m
+[31m-    <li class="nav-item">[m
+[31m-      <a class="nav-link" routerLink="login">Log-in</a>[m
+[31m-    </li>[m
+[32m+[m[32m    <div *ngIf="loginStatus; then logout else login"></div>[m
+[32m+[m[32m    <ng-template #login>[m
+[32m+[m[32m      <li class="nav-item">[m
+[32m+[m[32m        <a class="nav-link" routerLink="login">Log-in</a>[m
+[32m+[m[32m      </li>[m
+[32m+[m[32m    </ng-template>[m
+[32m+[m[32m    <ng-template #logout>[m
+[32m+[m[32m      <li class="nav-item">[m
+[32m+[m[32m        <!-- TODO: logout of user when clicking on this link-->[m
+[32m+[m[32m        <a class="nav-link" routerLink="login">Log-out</a>[m
+[32m+[m[32m      </li>[m
+[32m+[m[32m    </ng-template>[m
+   </ul>[m
+[31m-[m
+ </nav>[m
+\ No newline at end of file[m
+[1mdiff --git a/src/app/navbar/navbar.component.ts b/src/app/navbar/navbar.component.ts[m
+[1mindex 8e29f4e..b335769 100644[m
+[1m--- a/src/app/navbar/navbar.component.ts[m
+[1m+++ b/src/app/navbar/navbar.component.ts[m
+[36m@@ -1,15 +1,24 @@[m
+ import { Component, OnInit } from '@angular/core';[m
+[32m+[m[32mimport { LoginService } from '../login.service';[m
+ [m
+ @Component({[m
+   selector: 'app-navbar',[m
+   templateUrl: './navbar.component.html',[m
+[31m-  styleUrls: ['./navbar.component.css'][m
+[32m+[m[32m  styleUrls: ['./navbar.component.css'],[m
+[32m+[m[32m  providers: [ LoginService ][m
+ })[m
+ export class NavbarComponent implements OnInit {[m
+[31m-[m
+[31m-  constructor() { }[m
+[32m+[m[32m  loginStatus: boolean;[m
+[32m+[m[41m  [m
+[32m+[m[32m  constructor([m
+[32m+[m[32m    private loginService : LoginService[m
+[32m+[m[32m  ) { }[m
+ [m
+   ngOnInit() {[m
+[32m+[m[32m    this.loginStatus = this.loginService.getIsLoggedIn();[m
+   }[m
+ [m
+[32m+[m[32m  logout() {[m
+[32m+[m[32m    this.loginService.logout();[m
+[32m+[m[32m  }[m
+ }[m
