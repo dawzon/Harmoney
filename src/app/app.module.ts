@@ -10,6 +10,7 @@ import { InputComponent } from './input/input.component';
 import { LoginComponent } from './login/login.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore'
 import { LoginService } from './login.service';
 
 import { FormsModule } from '@angular/forms';
@@ -30,7 +31,8 @@ import { environment } from 'src/environments/environment';
     FormsModule,
     ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   providers: [
     LoginService

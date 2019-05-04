@@ -19,3 +19,9 @@
     </tr>
   </thead>
 </table>
+
+<ul>
+  <li *ngFor="let user of expense | async">
+      <pre>{{ user | json }}</pre>
+  </li>
+</ul>
