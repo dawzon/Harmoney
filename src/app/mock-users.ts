@@ -12,9 +12,15 @@ export const USERS: Users[] = [
                     date: new Date('2019-5-2T00:00:00'),
                     description: 'Electric Bill',
                     amount: 42,
-                    category: 'utilites'
+                    category: 'Utilites'
         
 
+        },
+        {
+                    date: new Date('2019-5-2T00:00:00'),
+                    description: 'Rent',
+                    amount: 350,
+                    category: 'Rent' 
         }]
     }
     

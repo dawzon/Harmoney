@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { USERS } from '../mock-users';
+import { Users } from '../Users';
+//import { Users } from '../Users';
 
 @Component({
   selector: 'app-input',
@@ -6,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
+  
 
   constructor() { }
 
@@ -13,7 +17,7 @@ export class InputComponent implements OnInit {
   }
 
   addExpense() {
-    alert("TODO: connect this to the data service.")
+    
   }
 
 }

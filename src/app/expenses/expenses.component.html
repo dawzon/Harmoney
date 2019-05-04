@@ -10,5 +10,12 @@
       <th scope="col">Amount</th>
       <th scope="col">Category</th>
     </tr>
+    <tr *ngFor="let expenses of users[0].expenses">
+      <td>{{expenses.date}}</td>
+      <td>{{expenses.description}}</td>
+      <td>{{expenses.amount}}</td>
+      <td>{{expenses.category}}</td>
+      
+    </tr>
   </thead>
 </table>
