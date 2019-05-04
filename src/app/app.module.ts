@@ -8,10 +8,12 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { VisualizationComponent } from './visualization/visualization.component';
 import { InputComponent } from './input/input.component';
 import { LoginComponent } from './login/login.component';
-
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { LoginService } from './login.service';
 
 import { FormsModule } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: [
     LoginService
