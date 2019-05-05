@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 export class LoginService {
 
   currentUser = { username: "DannyCool", password: "12345", name: "Daniel" };
-  isLoggedIn = false;
+  isLoggedIn: boolean = false;
   
   constructor() {
    }
@@ -26,6 +26,7 @@ export class LoginService {
     //TODO: compare login credentials against database to determine eligibility
     console.log("Successfully logged in.");
     this.isLoggedIn = true;
+    console.log("isLoggedIn: " + this.isLoggedIn);
   }
 
   logout() {

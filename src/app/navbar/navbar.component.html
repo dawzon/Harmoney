@@ -11,18 +11,14 @@
   </ul>
   
   <ul class="navbar-nav ml-auto">
-    <!-- TODO: dynamically show either button based on when user logs in or out -->
-    <div *ngIf="loginStatus; then logout else login"></div>
-    <ng-template #login>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="login">Log-in</a>
-      </li>
-    </ng-template>
-    <ng-template #logout>
-      <li class="nav-item">
-        <!-- TODO: logout of user when clicking on this link-->
-        <a class="nav-link" routerLink="login">Log-out</a>
-      </li>
-    </ng-template>
+    <li *ngIf="!loginService.isLoggedIn" class="nav-item">
+      <a class="nav-link" routerLink="login">Log-in</a>
+      <p>loginService.isLoggedIn: {{ loginService.isLoggedIn }}</p>
+    </li>
+    <li *ngIf="loginService.isLoggedIn" class="nav-item">
+      <!-- TODO: logout of user when clicking on this link-->
+      <a class="nav-link" routerLink="login">Log-out</a>
+      <p>loginService.isLoggedIn: {{ loginService.isLoggedIn }}</p>
+    </li>
   </ul>
 </nav>

@@ -4,18 +4,15 @@ import { LoginService } from '../login.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
-  providers: [ LoginService ]
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  loginStatus: boolean;
   
   constructor(
-    private loginService : LoginService
+    public loginService : LoginService
   ) { }
 
   ngOnInit() {
-    this.loginStatus = this.loginService.getIsLoggedIn();
   }
 
   logout() {
