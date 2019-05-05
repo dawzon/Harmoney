@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class LoginService {
 
-  currentUser = { username: "DannyCool", password: "12345", name: "Daniel" };
+  currentUser = undefined;
   isLoggedIn: boolean = false;
   
   constructor() {
@@ -24,13 +24,12 @@ export class LoginService {
 
   login(username : string, password : string) {
     //TODO: compare login credentials against database to determine eligibility
-    console.log("Successfully logged in.");
+    this.currentUser = { username: "DannyCool", password: "12345", name: "Daniel" };
     this.isLoggedIn = true;
-    console.log("isLoggedIn: " + this.isLoggedIn);
   }
 
   logout() {
-    console.log("Successfully logged out.");
+    this.currentUser = undefined;
     this.isLoggedIn = false;
   }
 }

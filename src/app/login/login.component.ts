@@ -5,8 +5,7 @@ import { LoginService } from '../login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [ LoginService ]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   output : string;
@@ -22,7 +21,9 @@ export class LoginComponent implements OnInit {
     //set up redirect
     this.returnURL = this.route.snapshot.queryParams['returnUrl'] || "/";
 
+    // If the user gets to the login page while already logged in, then log the user out and redirect
     if (this.loginService.getIsLoggedIn()) {
+      this.loginService.logout();
       this.router.navigate([this.returnURL]);
     }
   }
