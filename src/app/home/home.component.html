@@ -1,0 +1,26 @@
+<div *ngIf="loginService.isLoggedIn; then userGreeting else defaultGreeting"></div>
+<ng-template #userGreeting>
+  <p>
+    Hello, {{ loginService.currentUser.name }}!
+  </p>
+</ng-template>
+<ng-template #defaultGreeting>
+  <p>
+    Welcome to Harmoney!
+  </p>
+</ng-template>
+
+<h1>Harmoney</h1>
+<h2>a finance web application</h2>
+
+<div *ngIf="loginService.isLoggedIn; then userResponse; else defaultResponse"></div>
+<ng-template #userResponse>
+    <p>
+      Use the tabs above to view your finances.
+    </p>
+  </ng-template>
+  <ng-template #defaultResponse>
+    <p>
+      Please <a routerLink="../login">Login to your account</a> to get started.
+    </p>
+  </ng-template>

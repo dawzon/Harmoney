@@ -22,6 +22,13 @@ export const USERS: Users[] = [
                     amount: 350,
                     category: 'Rent' 
         }]
+    },
+    {
+        id: 2,
+        name: 'Test User',
+        username: 'asdf',
+        password: 'qwer',
+        expenses: []
     }
     
 ];

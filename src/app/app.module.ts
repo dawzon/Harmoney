@@ -15,6 +15,7 @@ import { LoginService } from './login.service';
 
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { environment } from 'src/environments/environment';
     ExpensesComponent,
     VisualizationComponent,
     InputComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
