@@ -8,7 +8,7 @@ import { LoginService } from '../login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  output : string;
+  errorMessage : string;
   returnURL: string;
 
   constructor(
@@ -31,10 +31,15 @@ export class LoginComponent implements OnInit {
   
   onSubmit(username : string, password : string) {
 
-    this.loginService.login(username, password);
+    var isSuccess = this.loginService.login(username, password);
     
-    // Redirect user back to where they were before login
-    this.router.navigate([this.returnURL]);
+    if (isSuccess) {
+      // Redirect user back to where they were before login
+      this.router.navigate([this.returnURL]);
+    }
+    else {
+      this.errorMessage = "No user with those credentials found!";
+    }
   }
 
 }
