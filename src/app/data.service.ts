@@ -22,6 +22,12 @@ export class DataService {
   }
 
   getExpenses(){
+
+    this.dataCollection = this.afs.collection('Users/1/Expenses');
+
+    this.expense = this.afs.collection('/Users/1/Expenses').valueChanges();
+    console.log(this.expense);
+
     return this.expense;
   }
 
