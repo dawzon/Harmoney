@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../login.service';
 
+import { User } from '../User';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -31,15 +33,20 @@ export class LoginComponent implements OnInit {
   
   onSubmit(username : string, password : string) {
 
-    var isSuccess = this.loginService.login(username, password);
-    
-    if (isSuccess) {
-      // Redirect user back to where they were before login
-      this.router.navigate([this.returnURL]);
-    }
-    else {
-      this.errorMessage = "No user with those credentials found!";
-    }
+    this.loginService.getUsers(username, password).subscribe((result: User[]) => {
+      if(result.length == 0) {
+        //login fail, no matches
+        this.errorMessage = "No user with those credentials found!";
+      } else if (result.length > 1) {
+        //This should never happen
+        this.errorMessage = `Multiple users (${result.length}) returned!  Something isn't right.`;
+      } else {
+        //login success
+        this.loginService.isLoggedIn = true;
+        this.loginService.currentUser = result[0];
+        this.router.navigate([this.returnURL]);
+      }
+    });
   }
 
 }

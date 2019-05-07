@@ -31,7 +31,7 @@ export class VisualizationComponent implements OnInit {
   //chart
   
   
-  BarChart = [];
+  BarChart;
     
 
   constructor(private dataService: DataService) { }

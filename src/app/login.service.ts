@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore'
 import { USERS } from './mock-users';
+
+import { User } from './User';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +13,8 @@ export class LoginService {
   currentUser = undefined;
   isLoggedIn: boolean = false;
   
-  constructor() {
-   }
+  constructor(private afs: AngularFirestore) {
+  }
 
   getIsLoggedIn() {
     return this.isLoggedIn;
@@ -21,6 +24,12 @@ export class LoginService {
     if (this.isLoggedIn) {
       return this.currentUser.name;
     }
+  }
+
+  getUsers(username: string, password: string): Observable<User[]> {
+    var users: AngularFirestoreCollection<User> =
+      this.afs.collection('Users', ref => ref.where('username', '==', username).where('password', '==', password));
+    return users.valueChanges();
   }
 
   login(username : string, password : string) {
