@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Expenses } from '../models/user';
+import { ChartsModule } from 'ng2-charts';
+import { Chart } from 'chart.js';
 
 
 
@@ -24,20 +26,18 @@ export class VisualizationComponent implements OnInit {
   clotSum: number = 0;
   healSum: number = 0;
 
-  //get sums
+  
   
   //chart
-  public barChartLabels = ['Groceries', 'Utilities', 'Entertainment', 'Rent', 'Clothing', 'Health'];
-  public barChartType = 'bar';
-  public barChartLegent = true;
-  public barChartData = [];
+  
+  
+  BarChart = [];
     
 
   constructor(private dataService: DataService) { }
   //get data
   ngOnInit() {
     this.dataService.getExpenses().subscribe(expense => {
-      console.log(expense);
       this.expenses = expense;
 
        //get sums
@@ -62,10 +62,49 @@ export class VisualizationComponent implements OnInit {
       }
     }
 
-    this.barChartData = [
-      {data: [this.grocSum, this.utilSum, this.enteSum, this.rentSum, this.clotSum, this.healSum], label: 'All time Expenses'},
-      
-    ]
+    //test
+    this.BarChart = new Chart('barChart', {
+      type: 'bar',
+    data: {
+     labels: ["Groceries", "Utilities", "Entertainment", "Rent", "Clothing", "Health"],
+     datasets: [{
+         label: 'All time Expenses',
+         data: [this.grocSum,this.utilSum , this.enteSum, this.rentSum, this.clotSum, this.healSum],
+         backgroundColor: [
+             'rgba(255, 99, 132, 0.2)',
+             'rgba(54, 162, 235, 0.2)',
+             'rgba(255, 206, 86, 0.2)',
+             'rgba(75, 192, 192, 0.2)',
+             'rgba(153, 102, 255, 0.2)',
+             'rgba(255, 159, 64, 0.2)'
+         ],
+         borderColor: [
+             'rgba(255,99,132,1)',
+             'rgba(54, 162, 235, 1)',
+             'rgba(255, 206, 86, 1)',
+             'rgba(75, 192, 192, 1)',
+             'rgba(153, 102, 255, 1)',
+             'rgba(255, 159, 64, 1)'
+         ],
+         borderWidth: 1
+     }]
+    }, 
+    options: {
+     title:{
+         text:"Bar Chart",
+         display:true
+     },
+     scales: {
+         yAxes: [{
+             ticks: {
+                 beginAtZero:true
+             }
+         }]
+     }
+    }
+    });
+
+   
 
       
     })
