@@ -11,17 +11,13 @@
       <th scope="col">Category</th>
     </tr>
     <tr *ngFor="let expense of expenses">
-      <td >{{expense.Date}}</td>
-      <td >{{expense.Description}}</td>
-      <td >{{expense.Amount}}</td>
-      <td >{{expense.Category}}</td>
+      <td >{{expense.date}}</td>
+      <td >{{expense.description}}</td>
+      <td >{{expense.amount}}</td>
+      <td >{{expense.category}}</td>
       
     </tr>
   </thead>
 </table>
 
-<ul>
-  <li *ngFor="let user of expense | async">
-      <pre>{{ user | json }}</pre>
-  </li>
-</ul>
+
