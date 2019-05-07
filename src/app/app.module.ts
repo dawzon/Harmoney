@@ -16,6 +16,7 @@ import { LoginService } from './login.service';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
+import { DataService } from './data.service'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { HomeComponent } from './home/home.component';
     AngularFirestoreModule
   ],
   providers: [
-    LoginService
+    LoginService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })
