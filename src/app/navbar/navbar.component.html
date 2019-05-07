@@ -12,6 +12,7 @@
   </ul>
   
   <ul class="navbar-nav ml-auto">
+    <p *ngIf="loginService.isLoggedIn" class="navbar-text">Hello, {{ loginService.currentUser.name }}.</p>
     <li *ngIf="!loginService.isLoggedIn" class="nav-item" [routerLinkActive]="['active']">
       <a class="nav-link" routerLink="login">Log-in</a>
     </li>
