@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Users } from './models/user';
 import { Observable } from 'rxjs';
 import { Expenses } from './models/user';
+import { LoginService } from './login.service';
 
 
 @Injectable({
@@ -12,20 +13,15 @@ export class DataService {
   dataCollection: AngularFirestoreCollection<Expenses>;
   expense: Observable<any[]>;
 
-  constructor(public afs: AngularFirestore) {
+  constructor(public afs: AngularFirestore, private login: LoginService) {
 
-    this.dataCollection = this.afs.collection('Users/1/Expenses');
-
-    this.expense = this.afs.collection('/Users/1/Expenses').valueChanges();
-    console.log(this.expense);
-
+    this.getExpenses();
   }
 
-  getExpenses(){
+  getExpenses() {
 
-    this.dataCollection = this.afs.collection('Users/1/Expenses');
-
-    this.expense = this.afs.collection('/Users/1/Expenses').valueChanges();
+    this.dataCollection = this.afs.collection(`Users/${this.login.currentUser.id}/Expenses`);
+    this.expense = this.afs.collection(`/Users/${this.login.currentUser.id}/Expenses`).valueChanges();
     console.log(this.expense);
 
     return this.expense;
