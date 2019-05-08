@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore'
+import { AngularFirestoreCollection, AngularFirestore, DocumentChangeAction } from 'angularfire2/firestore'
 import { USERS } from './mock-users';
 
 import { User } from './User';
@@ -26,10 +26,10 @@ export class LoginService {
     }
   }
 
-  getUsers(username: string, password: string): Observable<User[]> {
+  getUsers(username: string, password: string): Observable<DocumentChangeAction<User>[]> {
     var users: AngularFirestoreCollection<User> =
       this.afs.collection('Users', ref => ref.where('username', '==', username).where('password', '==', password));
-    return users.valueChanges();
+    return users.snapshotChanges();
   }
 
   login(username : string, password : string) {

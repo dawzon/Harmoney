@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../login.service';
+import { DocumentChangeAction } from 'angularfire2/firestore';
 
 import { User } from '../User';
 
@@ -33,7 +34,10 @@ export class LoginComponent implements OnInit {
   
   onSubmit(username : string, password : string) {
 
-    this.loginService.getUsers(username, password).subscribe((result: User[]) => {
+    //this.loginService.getUsers(username, password).subscribe(
+    //  result => console.log('doc id: ' + result[0].payload.doc.id));
+    
+    this.loginService.getUsers(username, password).subscribe((result: DocumentChangeAction<User>[]) => {
       if(result.length == 0) {
         //login fail, no matches
         this.errorMessage = "No user with those credentials found!";
@@ -43,7 +47,8 @@ export class LoginComponent implements OnInit {
       } else {
         //login success
         this.loginService.isLoggedIn = true;
-        this.loginService.currentUser = result[0];
+        this.loginService.currentUser = result[0].payload.doc.data();
+        this.loginService.currentUser.id = result[0].payload.doc.id;
         this.router.navigate([this.returnURL]);
       }
     });
