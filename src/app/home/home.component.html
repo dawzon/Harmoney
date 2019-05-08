@@ -10,8 +10,9 @@
   </p>
 </ng-template>
 
-<h1>Harmoney</h1>
-<h2>a finance web application</h2>
+
+
+<img src = "assets/images/harmoney logo.png" style="width:437px; height:126px;">
 
 <div *ngIf="loginService.isLoggedIn; then userResponse; else defaultResponse"></div>
 <ng-template #userResponse>
@@ -20,6 +21,7 @@
     </p>
   </ng-template>
   <ng-template #defaultResponse>
+    <p></p>
     <p>
       Please <a routerLink="../login">Login to your account</a> to get started.
     </p>
