@@ -26,9 +26,10 @@ export class DataService {
 
     return this.expense;
   }
-
-  addExpense(exp: Expenses){
-    this.dataCollection.add(exp);
+  
+  /** POST: add a new user to the server */
+  addExpense(exp: Expenses) {  
+    this.afs.collection<Expenses>(`Users/${this.login.currentUser.id}/Expenses`).add(exp);
   }
 }
 
