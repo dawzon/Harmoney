@@ -59,17 +59,16 @@ export class LoginService {
   }
 
 
-  /** POST: add a new hero to the server */
+  /** POST: add a new user to the server */
   registerAccount (name, username: string, password: string) {
         
     var userRef: AngularFirestoreCollection<User> = this.afs.collection<User>('Users');
 
-    var test_user: User = {
+    var temp_user: any = {
       name: name,
       username: username,
-      password: password,
-      expenses: []
+      password: password
     }
-    userRef.add(test_user);
+    userRef.add(temp_user);
   }
 }
