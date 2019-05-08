@@ -9,8 +9,9 @@
     <small id="safetyNotice" class="form-text text-muted">This site is for demonstration only and does not have high security. Do NOT use important passwords here!</small>
   </div>
   <div class="form-group">
-    <button type="button" class="btn btn-primary" (click)="onSubmit(username.value, password.value)">Log-in</button>
-    <button type="button" class="btn btn-secondary" (click)="goToRegister()">Register</button>
-    <p>{{ errorMessage }}</p>
+    <label>Re-enter password</label>
+    <input #re_password type="password" class="form-control" name="re_password" id="re_password" placeholder="Re-enter password" ngModel required/>
   </div>
+  <button type="button" class="btn btn-primary" (click)="onSubmit(username.value, password.value, re_password.value)">Log-in</button>
+  <p>{{ errorMessage }}</p>
 </form>
