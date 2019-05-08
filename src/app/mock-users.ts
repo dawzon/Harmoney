@@ -1,9 +1,8 @@
-import { Users } from './Users';
+import { User } from './User';
 //import { Expenses } from './Users';
 
-export const USERS: Users[] = [
+export const USERS: User[] = [
     {
-        id: 1,
         name: 'Keenan',
         username: 'keenan.kaufman',
         password: 'admin',
@@ -24,7 +23,6 @@ export const USERS: Users[] = [
         }]
     },
     {
-        id: 2,
         name: 'Test User',
         username: 'asdf',
         password: 'qwer',

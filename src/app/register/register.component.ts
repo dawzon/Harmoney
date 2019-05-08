@@ -30,21 +30,21 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  onSubmit(username : string, password : string, re_password : string) {
+  onSubmit(name : string, username : string, password : string, re_password : string) {
 
     if (password != re_password) {
       this.errorMessage = "passwords do not match.";
     }
     else {
-      this.loginService.getUsers(username, password).subscribe((result: User[]) => {
+      this.loginService.getUsersByUsername(username).subscribe((result: User[]) => {
         if(result.length >= 1) {
           //This shouldn't happen
           this.errorMessage = "User with this username already exists.";
         } else {
           //proceed to register
-          this.loginService.registerAccount(username, password);
+          this.loginService.registerAccount(name, username, password);
           this.loginService.login(username, password);
-          this.router.navigate([this.returnURL]);
+          this.router.navigate(["login"]);
         }
       });
     }

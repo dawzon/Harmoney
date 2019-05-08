@@ -34,6 +34,12 @@ export class LoginService {
     return users.valueChanges();
   }
 
+  getUsersByUsername(username: string): Observable<User[]> {
+    var users: AngularFirestoreCollection<User> =
+      this.afs.collection('Users', ref => ref.where('username', '==', username));
+    return users.valueChanges();
+  }
+
   login(username : string, password : string) {
     //TODO: compare login credentials against database to determine eligibility
     
@@ -54,14 +60,15 @@ export class LoginService {
 
 
   /** POST: add a new hero to the server */
-  registerAccount (username: string, password: string) {
+  registerAccount (name, username: string, password: string) {
         
     var userRef: AngularFirestoreCollection<User> = this.afs.collection<User>('Users');
 
     var test_user: User = {
       name: name,
       username: username,
-      password: password
+      password: password,
+      expenses: []
     }
     userRef.add(test_user);
   }
