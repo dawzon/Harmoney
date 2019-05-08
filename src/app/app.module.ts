@@ -16,7 +16,8 @@ import { LoginService } from './login.service';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { HomeComponent } from './home/home.component';
-import { DataService } from './data.service'
+import { DataService } from './data.service';
+import { RegisterComponent } from './register/register.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DataService } from './data.service'
     VisualizationComponent,
     InputComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

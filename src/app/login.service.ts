@@ -13,7 +13,9 @@ export class LoginService {
   currentUser = undefined;
   isLoggedIn: boolean = false;
   
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore
+    ) {
   }
 
   getIsLoggedIn() {
@@ -48,5 +50,19 @@ export class LoginService {
   logout() {
     this.currentUser = undefined;
     this.isLoggedIn = false;
+  }
+
+
+  /** POST: add a new hero to the server */
+  registerAccount (username: string, password: string) {
+        
+    var userRef: AngularFirestoreCollection<User> = this.afs.collection<User>('Users');
+
+    var test_user: User = {
+      name: name,
+      username: username,
+      password: password
+    }
+    userRef.add(test_user);
   }
 }
