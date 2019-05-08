@@ -37,16 +37,13 @@ export class RegisterComponent implements OnInit {
     }
     else {
       this.loginService.getUsers(username, password).subscribe((result: User[]) => {
-        if(result.length == 0) {
-          //login fail, no matches
-          this.errorMessage = "No user with those credentials found!";
-        } else if (result.length > 1) {
-          //This should never happen
-          this.errorMessage = `Multiple users (${result.length}) returned!  Something isn't right.`;
+        if(result.length >= 1) {
+          //This shouldn't happen
+          this.errorMessage = "User with this username already exists.";
         } else {
-          //login success
-          this.loginService.isLoggedIn = true;
-          this.loginService.currentUser = result[0];
+          //proceed to register
+          this.loginService.registerAccount(username, password);
+          this.loginService.login(username, password);
           this.router.navigate([this.returnURL]);
         }
       });
