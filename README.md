@@ -1,6 +1,6 @@
 ## About
 
-This application was a group project created for NDSU CSCI 313, where we learned how to use the Angular framework.  Currently, the it's hardcoded to one of our Firebase accounts for backend storage.
+This application was a group project created for NDSU CSCI 313, where we learned how to use the Angular framework.  Currently, it's hardcoded to one of our Firebase accounts for backend storage.
 
 The final product resembles a simple, although incomplete, finance tracking application.
 
