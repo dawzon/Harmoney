@@ -1,3 +1,9 @@
+## About
+
+This application was a group project created for NDSU CSCI 313, where we learned how to use the Angular framework.  Currently, the it's hardcoded to one of our Firebase accounts for backend storage.
+
+The final product resembles a simple, although incomplete, finance tracking application.
+
 # Harmoney
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
